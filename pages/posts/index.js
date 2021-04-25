@@ -1,4 +1,5 @@
 import { createClient } from 'contentful';
+import Post from '../../components/Post';
 
 export const getStaticProps = async () => {
 	const client = createClient({
@@ -21,11 +22,7 @@ const PostsPage = ({ posts }) => {
 		<div>
 			<h1>Posts Page</h1>
 			{posts.map(post => (
-				<div key={post.sys.id}>
-					<h2>{post.fields.title}</h2>
-					<p>By {post.fields.author}</p>
-					<p>{new Date(post.sys.createdAt).toDateString()}</p>
-				</div>
+				<Post key={post.sys.id} post={post} />
 			))}
 		</div>
 	);
