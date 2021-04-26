@@ -1,4 +1,5 @@
 import { createClient } from 'contentful';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Image from 'next/image';
 
 const client = createClient({
@@ -37,7 +38,15 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const PostDetailsPage = ({ post }) => {
-	const { title, slug, featuredImage, author, snippet, tags } = post.fields;
+	const {
+		title,
+		slug,
+		featuredImage,
+		author,
+		snippet,
+		tags,
+		bodyText,
+	} = post.fields;
 	const { createdAt } = post.sys;
 
 	console.log(post);
@@ -56,6 +65,7 @@ const PostDetailsPage = ({ post }) => {
 			<p>{new Date(createdAt).toDateString()}</p>
 			<p>{tags.join(', ')}</p>
 			<p>{snippet}</p>
+			<p className="w-1/2">{documentToReactComponents(bodyText)}</p>
 		</div>
 	);
 };
