@@ -1,6 +1,7 @@
 import { createClient } from 'contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const client = createClient({
 	space: process.env.CONTENTFUL_SPACE_ID,
@@ -63,7 +64,15 @@ const PostDetailsPage = ({ post }) => {
 			/>
 			<p>By {author}</p>
 			<p>{new Date(createdAt).toDateString()}</p>
-			<p>{tags.join(', ')}</p>
+			<p>
+				{tags.map(tag => {
+					return (
+						<Link key={tag} href={`/tags?tag=${tag}`}>
+							<a className="mr-2">{tag}</a>
+						</Link>
+					);
+				})}
+			</p>
 			<p>{snippet}</p>
 			<p className="w-1/2">{documentToReactComponents(bodyText)}</p>
 		</div>
