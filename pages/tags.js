@@ -2,22 +2,12 @@ import { createClient } from 'contentful';
 import { useRouter } from 'next/router';
 
 export const getStaticProps = async () => {
-	// if (!query.tag) {
-	// 	return {
-	// 		props: { posts: [] },
-	// 	};
-	// }
-
 	const client = createClient({
 		space: process.env.CONTENTFUL_SPACE_ID,
 		accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
 	});
 
 	const res = await client.getEntries({ content_type: 'post' });
-
-	// const filtered = res.items.filter(item => {
-	// 	return item.fields.tags.includes(query.tag);
-	// });
 
 	return {
 		props: {
