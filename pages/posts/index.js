@@ -17,7 +17,6 @@ export const getStaticProps = async () => {
 };
 
 const PostsPage = ({ posts }) => {
-	console.log(posts);
 	return (
 		<div>
 			<h1 className="text-2xl font-semibold">Posts Page</h1>

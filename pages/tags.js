@@ -29,8 +29,6 @@ const TagsPage = ({ posts }) => {
 		});
 	}
 
-	console.log(posts);
-
 	return (
 		<div>
 			<h1 className="text-2xl font-semibold">Tags</h1>
