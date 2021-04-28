@@ -1,5 +1,6 @@
 import { createClient } from 'contentful';
 import { useRouter } from 'next/router';
+import Post from '../components/Post';
 
 export const getStaticProps = async () => {
 	const client = createClient({
@@ -12,6 +13,7 @@ export const getStaticProps = async () => {
 	return {
 		props: {
 			posts: res.items,
+			revalidate: 1,
 		},
 	};
 };
@@ -36,9 +38,9 @@ const TagsPage = ({ posts }) => {
 				<h2 className="text-xl">Showing posts for {query.tag}</h2>
 			)}
 			{filtered.length < 1 && <span>No results</span>}
-			{filtered.map(post => {
-				return <div>{post.fields.title}</div>;
-			})}
+			{filtered.map(post => (
+				<Post key={post.sys.id} post={post} />
+			))}
 		</div>
 	);
 };

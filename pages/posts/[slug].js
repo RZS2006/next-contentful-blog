@@ -21,7 +21,7 @@ export const getStaticPaths = async () => {
 
 	return {
 		paths,
-		fallback: false,
+		fallback: true,
 	};
 };
 
@@ -31,14 +31,26 @@ export const getStaticProps = async ({ params }) => {
 		'fields.slug': params.slug,
 	});
 
+	if (res.items.length < 1) {
+		return {
+			redirect: {
+				destination: '/posts',
+				permanent: false,
+			},
+		};
+	}
+
 	return {
 		props: {
 			post: res.items[0],
+			revalidate: 1,
 		},
 	};
 };
 
 const PostDetailsPage = ({ post }) => {
+	if (!post) return <div>Loading...</div>;
+
 	const {
 		title,
 		slug,
