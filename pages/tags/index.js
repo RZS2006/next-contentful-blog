@@ -11,7 +11,7 @@ const TagsPage = () => {
 
 	return (
 		<div>
-			<h1 className="text-2xl font-semibold">Search Tags</h1>
+			<h1 className="text-2xl font-semibold mb-6">Search Tags</h1>
 			<form onSubmit={onSubmit}>
 				<label htmlFor="query" className="mr-2">
 					Search Tags

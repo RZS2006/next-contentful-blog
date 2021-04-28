@@ -28,13 +28,17 @@ const TagsSearchPage = ({ posts }) => {
 		filtered = [];
 	} else {
 		filtered = posts.filter(item => {
-			return item.fields.tags.includes(query.q);
+			if (item.fields.tags) {
+				return item.fields.tags.includes(query.q);
+			} else {
+				return false;
+			}
 		});
 	}
 
 	return (
 		<div>
-			<h1 className="text-2xl font-semibold">Tags</h1>
+			<h1 className="text-2xl font-semibold mb-6">Tags</h1>
 			<button onClick={() => router.back()}>Go back</button>
 			{query.q && <h2 className="text-xl">Showing posts for {query.q}</h2>}
 			{filtered.length < 1 && <span>No results</span>}

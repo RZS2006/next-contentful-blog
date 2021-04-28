@@ -60,31 +60,42 @@ const PostDetailsPage = ({ post }) => {
 		tags,
 		bodyText,
 	} = post.fields;
-	const { createdAt } = post.sys;
+	const { createdAt, updatedAt } = post.sys;
+
+	console.log(post);
 
 	return (
 		<div>
-			<h1 className="text-2xl font-semibold">{title}</h1>
-			<Image
-				src={`https:${featuredImage.fields.file.url}`}
-				alt={featuredImage.fields.title}
-				height={200}
-				width={400}
-				layout="intrinsic"
-			/>
-			<p>By {author}</p>
-			<p>{new Date(createdAt).toDateString()}</p>
+			<h1 className="text-2xl font-semibold mb-6">{title}</h1>
+			{featuredImage && (
+				<Image
+					src={`https:${featuredImage.fields.file.url}`}
+					alt={featuredImage.fields.title}
+					height={200}
+					width={400}
+					layout="intrinsic"
+				/>
+			)}
 			<p>
-				{tags.map(tag => {
-					return (
-						<Link key={tag} href={`/tags/search?q=${tag}`}>
-							<a className="mr-2">{tag}</a>
-						</Link>
-					);
-				})}
+				By <span className="text-blue-500">{author}</span>
 			</p>
-			<p>{snippet}</p>
-			<p className="w-1/2">{documentToReactComponents(bodyText)}</p>
+			<p>{new Date(createdAt).toDateString()}</p>
+			{createdAt !== updatedAt && (
+				<p>Last updated on {new Date(updatedAt).toDateString()}</p>
+			)}
+			{tags && (
+				<p>
+					{tags.map(tag => {
+						return (
+							<Link key={tag} href={`/tags/search?q=${tag}`}>
+								<a className="mr-2">{tag}</a>
+							</Link>
+						);
+					})}
+				</p>
+			)}
+			{snippet && <p>{snippet}</p>}
+			<div className="w-1/2 mt-6">{documentToReactComponents(bodyText)}</div>
 		</div>
 	);
 };

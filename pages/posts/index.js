@@ -20,7 +20,7 @@ export const getStaticProps = async () => {
 const PostsPage = ({ posts }) => {
 	return (
 		<div>
-			<h1 className="text-2xl font-semibold">Posts Page</h1>
+			<h1 className="text-2xl font-semibold mb-6">Posts Page</h1>
 			{posts.map(post => (
 				<Post key={post.sys.id} post={post} />
 			))}
