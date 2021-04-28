@@ -10,6 +10,9 @@ const Navbar = () => {
 			<Link href={'/about'}>
 				<a className="mr-2">About</a>
 			</Link>
+			<Link href={'/tags'}>
+				<a className="mr-2">Search Tags</a>
+			</Link>
 		</nav>
 	);
 };

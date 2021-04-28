@@ -79,7 +79,7 @@ const PostDetailsPage = ({ post }) => {
 			<p>
 				{tags.map(tag => {
 					return (
-						<Link key={tag} href={`/tags?tag=${tag}`}>
+						<Link key={tag} href={`/tags/search?q=${tag}`}>
 							<a className="mr-2">{tag}</a>
 						</Link>
 					);
