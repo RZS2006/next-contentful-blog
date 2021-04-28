@@ -62,8 +62,6 @@ const PostDetailsPage = ({ post }) => {
 	} = post.fields;
 	const { createdAt } = post.sys;
 
-	console.log(post);
-
 	return (
 		<div>
 			<h1 className="text-2xl font-semibold">{title}</h1>
