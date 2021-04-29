@@ -25,6 +25,10 @@ a {
 
 @layer base {
 	.wrapper {
-		@apply px-4 md:mx-auto md:w-10/12;
+		@apply px-4 sm:mx-auto sm:w-10/12;
+	}
+
+	h1 {
+		@apply text-2xl font-semibold mb-4;
 	}
 }
