@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 body,
 button,
 input {
@@ -12,17 +18,13 @@ input {
 		sans-serif;
 }
 
-html,
-body {
-	padding: 0;
-	margin: 0;
-}
-
 a {
 	color: inherit;
 	text-decoration: none;
 }
 
-* {
-	box-sizing: border-box;
+@layer base {
+	.wrapper {
+		@apply px-4 md:mx-auto md:w-10/12;
+	}
 }
