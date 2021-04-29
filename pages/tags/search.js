@@ -1,5 +1,6 @@
 import { createClient } from 'contentful';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Post from '../../components/Post';
 
 export const getStaticProps = async () => {
@@ -37,15 +38,36 @@ const TagsSearchPage = ({ posts }) => {
 	}
 
 	return (
-		<div>
-			<h1 className="text-2xl font-semibold mb-6">Tags</h1>
-			<button onClick={() => router.back()}>Go back</button>
-			{query.q && <h2 className="text-xl">Showing posts for {query.q}</h2>}
-			{filtered.length < 1 && <span>No results</span>}
-			{filtered.map(post => (
-				<Post key={post.sys.id} post={post} />
-			))}
-		</div>
+		<>
+			<Head>
+				<title>Search Results for "{query.q}" | Mönkijä Blogit</title>
+				<meta
+					name="viewport"
+					content="initial-scale=1.0, width=device-width"
+				/>
+			</Head>
+			<div>
+				<div className="wrapper py-6">
+					{query.q && <h1>Showing posts for "{query.q}"</h1>}
+					<div className="text-gray-600 mb-4">
+						<span>
+							{filtered.length < 1
+								? 'No results'
+								: `${filtered.length} result(s)`}
+						</span>
+						{' • '}
+						<button
+							className="text-green-800 hover:text-green-700"
+							onClick={() => router.back()}>
+							Go back
+						</button>
+					</div>
+					{filtered.map(post => (
+						<Post key={post.sys.id} post={post} />
+					))}
+				</div>
+			</div>
+		</>
 	);
 };
 
