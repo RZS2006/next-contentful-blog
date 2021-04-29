@@ -32,3 +32,9 @@ a {
 		@apply text-2xl font-semibold mb-4;
 	}
 }
+
+@layer components {
+	.btn {
+		@apply bg-green-800 py-1 px-4 text-white hover:bg-green-700 transition duration-200 ease-in-out;
+	}
+}

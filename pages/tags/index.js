@@ -1,34 +1,51 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 const TagsPage = () => {
 	const router = useRouter();
 	const [query, setQuery] = useState('');
 
-	const onSubmit = () => {
-		router.push(`/tags/search?q=${query}`);
+	const onSubmit = e => {
+		e.preventDefault();
+		if (query.trim().length > 0) {
+			router.push(`/tags/search?q=${query.trim()}`);
+		}
 	};
 
 	return (
-		<div>
-			<h1 className="text-2xl font-semibold mb-6">Search Tags</h1>
-			<form onSubmit={onSubmit}>
-				<label htmlFor="query" className="mr-2">
-					Search Tags
-				</label>
-				<input
-					type="text"
-					name="query"
-					required
-					value={query}
-					onChange={e => setQuery(e.target.value)}
-					className="border mr-2"
+		<>
+			<Head>
+				<title>Explore Tags | Mönkijä Blogit</title>
+				<meta
+					name="viewport"
+					content="initial-scale=1.0, width=device-width"
 				/>
-				<button type="submit" className="text-blue-500">
-					Go
-				</button>
-			</form>
-		</div>
+			</Head>
+			<div>
+				<div className="wrapper py-6">
+					<h1>Explore Tags</h1>
+					<form onSubmit={e => onSubmit(e)} className="flex flex-col">
+						<label htmlFor="query" className="mr-2 text-gray-600 mb-1">
+							Search
+						</label>
+						<div className="flex">
+							<input
+								type="text"
+								name="query"
+								required
+								value={query}
+								onChange={e => setQuery(e.target.value)}
+								className="border rounded-l py-1 px-2 outline-none w-full sm:w-auto focus:ring-1"
+							/>
+							<button type="submit" className="btn rounded-r">
+								Go
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</>
 	);
 };
 
