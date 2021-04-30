@@ -26,7 +26,7 @@ const Post = ({ post }) => {
 							{title}
 						</h2>
 						<p className="hidden sm:block text-gray-600">{snippet}</p>
-						<div className="flex items-end h-full">
+						<div className="flex items-end h-full mt-1">
 							<div className="text-xs text-gray-600">
 								<span>By {author}</span>
 								{' ∙ '}
