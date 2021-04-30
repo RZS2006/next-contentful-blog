@@ -55,7 +55,7 @@ const TagsSearchPage = ({ posts }) => {
 								? 'No results'
 								: `${filtered.length} result(s)`}
 						</span>
-						{' • '}
+						{' ∙ '}
 						<button
 							className="text-green-800 hover:text-green-700"
 							onClick={() => router.back()}>
