@@ -2,6 +2,7 @@ import { createClient } from 'contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const client = createClient({
 	space: process.env.CONTENTFUL_SPACE_ID,
@@ -65,38 +66,54 @@ const PostDetailsPage = ({ post }) => {
 	console.log(post);
 
 	return (
-		<div>
-			<h1 className="text-2xl font-semibold mb-6">{title}</h1>
-			{featuredImage && (
-				<Image
-					src={`https:${featuredImage.fields.file.url}`}
-					alt={featuredImage.fields.title}
-					height={200}
-					width={400}
-					layout="intrinsic"
+		<>
+			<Head>
+				<title>{title} | Mönkijä Blogit</title>
+				<meta
+					name="viewport"
+					content="initial-scale=1.0, width=device-width"
 				/>
-			)}
-			<p>
-				By <span className="text-blue-500">{author}</span>
-			</p>
-			<p>{new Date(createdAt).toDateString()}</p>
-			{createdAt !== updatedAt && (
-				<p>Last updated on {new Date(updatedAt).toDateString()}</p>
-			)}
-			{tags && (
-				<p>
-					{tags.map(tag => {
-						return (
-							<Link key={tag} href={`/tags/search?q=${tag}`}>
-								<a className="mr-2">{tag}</a>
-							</Link>
-						);
-					})}
-				</p>
-			)}
-			{snippet && <p>{snippet}</p>}
-			<div className="w-1/2 mt-6">{documentToReactComponents(bodyText)}</div>
-		</div>
+			</Head>
+			<div>
+				<div className="wrapper py-6">
+					<div className="mx-auto max-w-2xl">
+						<h1>{title}</h1>
+						{featuredImage && (
+							<Image
+								src={`https:${featuredImage.fields.file.url}`}
+								alt={featuredImage.fields.title}
+								height={380}
+								width={680}
+								layout="responsive"
+								className="object-cover"
+							/>
+						)}
+						<p>
+							By <span className="text-blue-500">{author}</span>
+						</p>
+						<p>{new Date(createdAt).toDateString()}</p>
+						{createdAt !== updatedAt && (
+							<p>Last updated on {new Date(updatedAt).toDateString()}</p>
+						)}
+						{tags && (
+							<p>
+								{tags.map(tag => {
+									return (
+										<Link key={tag} href={`/tags/search?q=${tag}`}>
+											<a className="mr-2">{tag}</a>
+										</Link>
+									);
+								})}
+							</p>
+						)}
+						{snippet && <p>{snippet}</p>}
+						<div className="w-1/2 mt-6">
+							{documentToReactComponents(bodyText)}
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
 	);
 };
 
