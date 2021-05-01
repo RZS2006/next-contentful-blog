@@ -3,6 +3,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import Tag from '../../components/Tag';
 
 const client = createClient({
 	space: process.env.CONTENTFUL_SPACE_ID,
@@ -91,14 +92,13 @@ const PostDetailsPage = ({ post }) => {
 								</span>
 							)}
 						</div>
-						{tags &&
-							tags.map(tag => {
-								return (
-									<Link key={tag} href={`/tags/search?q=${tag}`}>
-										<a className="mr-2">{tag}</a>
-									</Link>
-								);
-							})}
+						{tags && (
+							<div className="mb-6 gap-2 flex flex-wrap">
+								{tags.map(tag => (
+									<Tag key={tag} tag={tag} />
+								))}
+							</div>
+						)}
 						<Image
 							src={
 								featuredImage
