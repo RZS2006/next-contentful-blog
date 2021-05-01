@@ -1,7 +1,6 @@
 import { createClient } from 'contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Image from 'next/image';
-import Link from 'next/link';
 import Head from 'next/head';
 import Tag from '../../components/Tag';
 import Post from '../../components/Post';
@@ -34,7 +33,7 @@ export const getStaticProps = async ({ params }) => {
 		'fields.slug': params.slug,
 	});
 
-	const posts = await client.getEntries({ content_type: 'post' });
+	const allPosts = await client.getEntries({ content_type: 'post' });
 
 	if (res.items.length < 1) {
 		return {
@@ -48,18 +47,17 @@ export const getStaticProps = async ({ params }) => {
 	return {
 		props: {
 			post: res.items[0],
-			posts: posts.items,
+			allPosts: allPosts.items,
 			revalidate: 1,
 		},
 	};
 };
 
-const PostDetailsPage = ({ post, posts }) => {
+const PostDetailsPage = ({ post, allPosts }) => {
 	if (!post) return <div>Loading...</div>;
 
 	const {
 		title,
-		slug,
 		featuredImage,
 		author,
 		snippet,
@@ -68,7 +66,9 @@ const PostDetailsPage = ({ post, posts }) => {
 	} = post.fields;
 	const { createdAt, updatedAt, id } = post.sys;
 
-	const filtered = posts.filter(p => p.sys.id !== id).slice(0, 3);
+	const filteredAllPosts = allPosts
+		.filter(post => post.sys.id !== id)
+		.slice(0, 3);
 
 	return (
 		<>
@@ -79,50 +79,48 @@ const PostDetailsPage = ({ post, posts }) => {
 					content="initial-scale=1.0, width=device-width"
 				/>
 			</Head>
-			<div>
-				<div className="wrapper py-6">
-					<div className="mx-auto max-w-2xl">
-						<h1 class="mb-2">{title}</h1>
-						{snippet && <p className="text-gray-600 mb-6">{snippet}</p>}
-						<div className="text-gray-600 text-sm mb-4 flex">
-							<span>
-								<span>By {author}</span>
-								{' ∙ '}
-								<span>{new Date(createdAt).toDateString()}</span>
+			<div className="wrapper py-6">
+				<div className="mx-auto max-w-2xl">
+					<h1 class="mb-2">{title}</h1>
+					{snippet && <p className="text-gray-600 mb-6">{snippet}</p>}
+					<div className="text-gray-600 text-sm flex">
+						<span>
+							<span>By {author}</span>
+							{' ∙ '}
+							<span>{new Date(createdAt).toDateString()}</span>
+						</span>
+						{createdAt !== updatedAt && (
+							<span className="hidden sm:inline flex-1 text-xs text-gray-500 text-right">
+								Last updated on {new Date(updatedAt).toDateString()}
 							</span>
-							{createdAt !== updatedAt && (
-								<span className="hidden sm:inline flex-1 text-xs text-gray-500 text-right">
-									Last updated on {new Date(updatedAt).toDateString()}
-								</span>
-							)}
-						</div>
-						{tags && (
-							<div className="mb-4 gap-2 flex flex-wrap">
-								{tags.map(tag => (
-									<Tag key={tag} tag={tag} />
-								))}
-							</div>
 						)}
-						<Image
-							src={
-								featuredImage
-									? `https:${featuredImage.fields.file.url}`
-									: '/default-featured-image.svg'
-							}
-							alt={featuredImage ? featuredImage.fields.title : title}
-							height={380}
-							width={680}
-							layout="responsive"
-							className="object-cover"
-						/>
-						<div className="mt-6 leading-8">
-							{documentToReactComponents(bodyText)}
+					</div>
+					{tags && (
+						<div className="my-4 gap-2 flex flex-wrap">
+							{tags.map(tag => (
+								<Tag key={tag} tag={tag} />
+							))}
 						</div>
-						<h2 className="text-2xl font-semibold mt-12 text-gray-800">
-							Explore more posts
-						</h2>
+					)}
+					<Image
+						src={
+							featuredImage
+								? `https:${featuredImage.fields.file.url}`
+								: '/default-featured-image.svg'
+						}
+						alt={featuredImage ? featuredImage.fields.title : title}
+						height={380}
+						width={680}
+						layout="responsive"
+						className="object-cover"
+					/>
+					<div className="mt-6 leading-8">
+						{documentToReactComponents(bodyText)}
+					</div>
+					<div className="mt-12">
+						<h2 className="text-2xl font-semibold">Explore more posts</h2>
 						<div>
-							{filtered.map(post => (
+							{filteredAllPosts.map(post => (
 								<Post post={post} />
 							))}
 						</div>

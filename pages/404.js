@@ -11,18 +11,16 @@ const NotFoundPage = () => {
 					content="initial-scale=1.0, width=device-width"
 				/>
 			</Head>
-			<div>
-				<div className="wrapper py-10">
-					<h1 class="text-6xl mb-2">404</h1>
-					<h2 className="text-xl mb-8">That page cannot be found</h2>
-					<p>
-						Go back to the{' '}
-						<Link href={'/posts'}>
-							<a className="link">homepage</a>
-						</Link>{' '}
-						for all posts
-					</p>
-				</div>
+			<div className="wrapper py-10">
+				<h1 class="text-6xl mb-2">404</h1>
+				<h2 className="text-xl mb-8">That page cannot be found</h2>
+				<p>
+					Go back to the{' '}
+					<Link href={'/posts'}>
+						<a className="link">homepage</a>
+					</Link>{' '}
+					for all posts
+				</p>
 			</div>
 		</>
 	);

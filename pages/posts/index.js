@@ -28,14 +28,12 @@ const PostsPage = ({ posts }) => {
 					content="initial-scale=1.0, width=device-width"
 				/>
 			</Head>
-			<div>
-				<div className="wrapper py-6">
-					<h1>Recent Posts</h1>
-					<div>
-						{posts.map(post => (
-							<Post key={post.sys.id} post={post} />
-						))}
-					</div>
+			<div className="wrapper py-6">
+				<h1>Recent Posts</h1>
+				<div>
+					{posts.map(post => (
+						<Post key={post.sys.id} post={post} />
+					))}
 				</div>
 			</div>
 		</>
