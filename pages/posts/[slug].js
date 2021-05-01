@@ -93,7 +93,7 @@ const PostDetailsPage = ({ post }) => {
 							)}
 						</div>
 						{tags && (
-							<div className="mb-6 gap-2 flex flex-wrap">
+							<div className="mb-4 gap-2 flex flex-wrap">
 								{tags.map(tag => (
 									<Tag key={tag} tag={tag} />
 								))}
@@ -112,7 +112,7 @@ const PostDetailsPage = ({ post }) => {
 							className="object-cover"
 						/>
 
-						<div className="mt-6">
+						<div className="mt-6 leading-8">
 							{documentToReactComponents(bodyText)}
 						</div>
 					</div>
