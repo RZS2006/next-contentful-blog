@@ -77,37 +77,42 @@ const PostDetailsPage = ({ post }) => {
 			<div>
 				<div className="wrapper py-6">
 					<div className="mx-auto max-w-2xl">
-						<h1>{title}</h1>
-						{featuredImage && (
-							<Image
-								src={`https:${featuredImage.fields.file.url}`}
-								alt={featuredImage.fields.title}
-								height={380}
-								width={680}
-								layout="responsive"
-								className="object-cover"
-							/>
-						)}
-						<p>
-							By <span className="text-blue-500">{author}</span>
-						</p>
-						<p>{new Date(createdAt).toDateString()}</p>
-						{createdAt !== updatedAt && (
-							<p>Last updated on {new Date(updatedAt).toDateString()}</p>
-						)}
-						{tags && (
-							<p>
-								{tags.map(tag => {
-									return (
-										<Link key={tag} href={`/tags/search?q=${tag}`}>
-											<a className="mr-2">{tag}</a>
-										</Link>
-									);
-								})}
-							</p>
-						)}
-						{snippet && <p>{snippet}</p>}
-						<div className="w-1/2 mt-6">
+						<h1 class="mb-2">{title}</h1>
+						{snippet && <p className="text-gray-600 mb-6">{snippet}</p>}
+						<div className="text-gray-600 text-sm mb-4 flex">
+							<span>
+								<span>By {author}</span>
+								{' ∙ '}
+								<span>{new Date(createdAt).toDateString()}</span>
+							</span>
+							{createdAt !== updatedAt && (
+								<span className="hidden sm:inline flex-1 text-xs text-gray-500 text-right">
+									Last updated on {new Date(updatedAt).toDateString()}
+								</span>
+							)}
+						</div>
+						{tags &&
+							tags.map(tag => {
+								return (
+									<Link key={tag} href={`/tags/search?q=${tag}`}>
+										<a className="mr-2">{tag}</a>
+									</Link>
+								);
+							})}
+						<Image
+							src={
+								featuredImage
+									? `https:${featuredImage.fields.file.url}`
+									: '/default-featured-image.svg'
+							}
+							alt={featuredImage ? featuredImage.fields.title : title}
+							height={380}
+							width={680}
+							layout="responsive"
+							className="object-cover"
+						/>
+
+						<div className="mt-6">
 							{documentToReactComponents(bodyText)}
 						</div>
 					</div>
