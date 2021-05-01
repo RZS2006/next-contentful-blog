@@ -33,15 +33,15 @@ a {
 	}
 
 	h4 {
-		@apply text-xl font-semibold mb-1;
+		@apply text-xl font-semibold my-1;
 	}
 
 	h5 {
-		@apply text-lg font-semibold mb-1;
+		@apply text-lg font-semibold my-1;
 	}
 
 	h6 {
-		@apply text-base font-semibold mb-1;
+		@apply text-base font-semibold my-1;
 	}
 
 	blockquote {

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import Tag from '../../components/Tag';
+import Post from '../../components/Post';
 
 const client = createClient({
 	space: process.env.CONTENTFUL_SPACE_ID,
@@ -33,6 +34,8 @@ export const getStaticProps = async ({ params }) => {
 		'fields.slug': params.slug,
 	});
 
+	const posts = await client.getEntries({ content_type: 'post' });
+
 	if (res.items.length < 1) {
 		return {
 			redirect: {
@@ -45,12 +48,13 @@ export const getStaticProps = async ({ params }) => {
 	return {
 		props: {
 			post: res.items[0],
+			posts: posts.items,
 			revalidate: 1,
 		},
 	};
 };
 
-const PostDetailsPage = ({ post }) => {
+const PostDetailsPage = ({ post, posts }) => {
 	if (!post) return <div>Loading...</div>;
 
 	const {
@@ -62,9 +66,9 @@ const PostDetailsPage = ({ post }) => {
 		tags,
 		bodyText,
 	} = post.fields;
-	const { createdAt, updatedAt } = post.sys;
+	const { createdAt, updatedAt, id } = post.sys;
 
-	console.log(post);
+	const filtered = posts.filter(p => p.sys.id !== id).slice(0, 3);
 
 	return (
 		<>
@@ -111,9 +115,16 @@ const PostDetailsPage = ({ post }) => {
 							layout="responsive"
 							className="object-cover"
 						/>
-
 						<div className="mt-6 leading-8">
 							{documentToReactComponents(bodyText)}
+						</div>
+						<h2 className="text-2xl font-semibold mt-12 text-gray-800">
+							Explore more posts
+						</h2>
+						<div>
+							{filtered.map(post => (
+								<Post post={post} />
+							))}
 						</div>
 					</div>
 				</div>
