@@ -102,18 +102,20 @@ const PostDetailsPage = ({ post, allPosts }) => {
 							))}
 						</div>
 					)}
-					<Image
-						src={
-							featuredImage
-								? `https:${featuredImage.fields.file.url}`
-								: '/default-featured-image.svg'
-						}
-						alt={featuredImage ? featuredImage.fields.title : title}
-						height={380}
-						width={680}
-						layout="responsive"
-						className="object-cover"
-					/>
+					<div className="mt-4">
+						<Image
+							src={
+								featuredImage
+									? `https:${featuredImage.fields.file.url}`
+									: '/default-featured-image.svg'
+							}
+							alt={featuredImage ? featuredImage.fields.title : title}
+							height={380}
+							width={680}
+							layout="responsive"
+							className="object-cover"
+						/>
+					</div>
 					<div className="mt-6 leading-8">
 						{documentToReactComponents(bodyText)}
 					</div>
