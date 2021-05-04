@@ -119,7 +119,7 @@ const PostDetailsPage = ({ post, allPosts }) => {
 							className="object-cover"
 						/>
 					</div>
-					<div className="mt-6 leading-8">
+					<div className="mt-6 leading-8 body-text">
 						{documentToReactComponents(bodyText)}
 					</div>
 					<div className="mt-12">

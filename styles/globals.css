@@ -45,7 +45,7 @@ a {
 	}
 
 	blockquote {
-		@apply px-4 py-3 my-1 bg-gray-100;
+		@apply px-4 py-3 my-1 bg-gray-100 rounded;
 	}
 }
 
@@ -55,6 +55,14 @@ a {
 	}
 
 	.link {
+		@apply text-green-800 hover:text-green-700 hover:underline transition duration-200 ease-in-out;
+	}
+
+	.body-text p {
+		@apply my-2;
+	}
+
+	.body-text a {
 		@apply text-green-800 hover:text-green-700 hover:underline transition duration-200 ease-in-out;
 	}
 }
