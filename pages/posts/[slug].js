@@ -33,7 +33,10 @@ export const getStaticProps = async ({ params }) => {
 		'fields.slug': params.slug,
 	});
 
-	const allPosts = await client.getEntries({ content_type: 'post' });
+	const allPosts = await client.getEntries({
+		content_type: 'post',
+		order: '-sys.createdAt',
+	});
 
 	if (res.items.length < 1) {
 		return {

@@ -30,7 +30,7 @@ const Post = ({ post }) => {
 							<div className="text-xs text-gray-600">
 								<span>By {author}</span>
 								{' ∙ '}
-								<span>{new Date(createdAt).toDateString()}</span>
+								<span>{new Date(createdAt).toLocaleDateString()}</span>
 							</div>
 						</div>
 					</div>
